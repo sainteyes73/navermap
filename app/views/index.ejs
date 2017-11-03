@@ -1,0 +1,112 @@
+<% include header %>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <aside class="menu">
+          <p class="menu-label">
+            지점 목록
+          </p>
+          <ul class="menu-list">
+            <%items.forEach(function (item){%>
+              <li><a href="#" location="<%=item.coords%>" title="<%=item.title%>"><%=item.title%></a></li>
+            <%});%>
+          </ul>
+        </aside>
+      </div>
+      <div class="column is-9">
+        <div class="" id="map" style="width: 100%; height: 400px;"></div>
+      </div>
+    </div>
+    <button id="nearbyme" type="button" class="button is-primary">현재 위치에서 가까운 매장 찾기</button>
+  </div>
+</section>
+
+
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=클라이언트키" charset="utf-8"></script>
+<script type="text/javascript">
+var map = new naver.maps.Map("map", { // 등록된 좌표를 본점으로 가정한 map 세팅
+  center: new naver.maps.LatLng(37.497823, 127.0285636),
+  zoom: 10,
+  mapTypeControl: true
+});
+
+var infowindow = new naver.maps.InfoWindow(); // 지도 화면 객체
+
+function defaultLocation() {
+  var marker = new naver.maps.Marker({ // 마커
+    position: map.center,
+    map: map
+  });
+  infowindow.setContent('<div class="notification is-primary">스타벅스 본점</div>');
+  infowindow.open(map, marker);
+}
+
+function menuLocation(title, position) {
+  var coords = position.split(',');
+  var location = new naver.maps.LatLng(coords[1], coords[0]);
+  map.setCenter(location);  // 얻은 좌표를 지도의 중심으로 설정
+  var marker = new naver.maps.Marker({ // 마커
+    position: location,
+    map: map
+  });
+  infowindow.setContent('<div class="notification is-primary">'+title+'</div>');
+  infowindow.open(map, marker);
+}
+
+function userGeolocation(position) {
+  $.ajax({
+    url: '/nearbyme',
+    type: 'post',
+    data: {'lat': position.coords.latitude, 'lng': position.coords.longitude}, // 내 위치 좌표
+    success: function (data) {
+      if (data.result) {
+        var location = new naver.maps.LatLng(data.item.coords[1], data.item.coords[0]);
+        map.setCenter(location);
+        var marker = new naver.maps.Marker({
+          position: location,
+          map: map
+        });
+        infowindow.setContent('<div class="notification is-info">가장 가까운 지점은 '+data.item.title+' 입니다.<br/>'+data.item.address+'</div>');
+        infowindow.open(map, marker);
+      }
+    },
+    error: function (request, status, error) {
+      console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    }
+  });
+}
+
+function geolocationErr(error) { // 에러 처리
+  alert(error.message);
+}
+
+$(document).ready(function() {
+  // default
+  defaultLocation();
+  // menu 클릭 시
+  $('.menu-list li a').click(function (e) {
+    e.preventDefault();
+    var location = $(this).attr('location');
+    var title = $(this).attr('title');
+    menuLocation(title, location);
+  });
+  // 위치 정보
+  $('#nearbyme').click( function (e) {
+    e.preventDefault();
+    if (navigator.geolocation) {
+      var options = {
+        enableHighAccuracy: true, // 최대한 정확도를 높게 받을 것인지의 불리언 값
+        timeout: Infinity, // 위치 값을 장치로부터 받을 때까지의 대기할 시간 기본값은 Infinity
+        maximumAge: 0 // 캐시된 위치 값을 반환 받아도 되는 최대한의 시간, 0은 캐시된 위치 값 사용 X
+      };
+      navigator.geolocation.watchPosition(userGeolocation, geolocationErr, options); // 현재 위치 (위차가 바뀌면 갱신)
+    } else {
+      alert('지원 안되는 브라우저 입니다..');
+    }
+  });
+
+});
+
+</script>
+<% include footer %>
