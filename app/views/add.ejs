@@ -67,12 +67,6 @@ $(document).ready(function() {
     e.preventDefault();
     searchAddressToCoordinate($('#findForm input[name=address]').val());
   });
-  $('#findForm input[type=submit]').on('keydown', function(e) {
-    var keyCode = e.which;
-    if (keyCode === 13) { // Enter Key
-      searchAddressToCoordinate($('#findForm input[name=address]').val());
-    }
-  });
 });
 $(document).on('submit', '#insertForm', function(e) {
   e.preventDefault();
@@ -93,6 +87,5 @@ $(document).on('submit', '#insertForm', function(e) {
     }
   });
 });
-
 </script>
 <%include footer%>

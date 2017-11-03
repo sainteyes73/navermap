@@ -59,9 +59,10 @@ router.post('/nearbyme', function (req, res, next) {
   }).exec(function (err, item) {
     if (err) {
       return next(err);
-    } else {
-      console.log(item);
+    } else if (item) {
       res.json({result: true, item: item});
+    } else {
+      res.json({result: false});
     }
   });
 });
