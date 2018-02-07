@@ -9,7 +9,7 @@
           </p>
           <ul class="menu-list">
             <%items.forEach(function (item){%>
-              <li><a href="#" location="<%=item.coords%>" title="<%=item.title%>"><%=item.title%></a></li>
+              <li><a href="#" location="<%=item.coords%>" title="<%=item.title%>" address="<%=item.address%>"><%=item.title%></a></li>
             <%});%>
           </ul>
         </aside>
@@ -23,7 +23,7 @@
 </section>
 
 
-<script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=클라이언트키" charset="utf-8"></script>
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=88gWD20RtsxD8klxDmdI" charset="utf-8"></script>
 <script type="text/javascript">
 var map = new naver.maps.Map("map", { // 등록된 좌표를 본점으로 가정한 map 세팅
   center: new naver.maps.LatLng(37.497823, 127.0285636),
@@ -41,7 +41,31 @@ function defaultLocation() {
   infowindow.setContent('<div class="notification is-primary">스타벅스 본점</div>');
   infowindow.open(map, marker);
 }
+function searchAddressToCoordinate(address) {
+    naver.maps.Service.geocode({
+        address: address
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+            return alert('Something Wrong!');
+        }
 
+        var item = response.result.items[0],
+            addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]',
+            point = new naver.maps.Point(item.point.x, item.point.y);
+
+        infoWindow.setContent([
+                '<div style="padding:10px;min-width:200px;line-height:150%;">',
+                '<h4 style="margin-top:5px;">검색 주소 : '+ response.result.userquery +'</h4><br />',
+                addrType +' '+ item.address +'<br />',
+                '&nbsp&nbsp&nbsp -> '+ point.x +','+ point.y,
+                '</div>'
+            ].join('\n'));
+
+
+        map.setCenter(point);
+        infoWindow.open(map, point);
+    });
+}
 function menuLocation(title, position) {
   var coords = position.split(',');
   var location = new naver.maps.LatLng(coords[1], coords[0]);
@@ -89,7 +113,10 @@ $(document).ready(function() {
     e.preventDefault();
     var location = $(this).attr('location');
     var title = $(this).attr('title');
-    menuLocation(title, location);
+    var addr = $(this).attr('address');
+    //menuLocation(title, location);
+    searchAddressToCoordinate(addr);
+
   });
   // 위치 정보
   $('#nearbyme').click( function (e) {
