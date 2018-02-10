@@ -4,8 +4,8 @@ var express = require('express'),
   config = require('./config/config'),
   glob = require('glob'),
   mongoose = require('mongoose');
-var favicon = require('serve-favicon');
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+  favicon = require('serve-favicon');
+var app = express();
   mongoose.Promise = global.Promise;
   var mongoDB = mongoose.connect(config.db, {
     useMongoClient: true
@@ -17,12 +17,12 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
     .catch(function (err) {
       console.log('error while trying to connect with mongodb');
     });
-
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 var models = glob.sync(config.root + '/app/models/*.js');
 models.forEach(function (model) {
   require(model);
 });
-var app = express();
+
 
 module.exports = require('./config/express')(app, config);
 
