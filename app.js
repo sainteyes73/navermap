@@ -4,7 +4,7 @@ var express = require('express'),
   config = require('./config/config'),
   glob = require('glob'),
   mongoose = require('mongoose');
-
+var favicon = require('serve-favicon');
   mongoose.Promise = global.Promise;
   var mongoDB = mongoose.connect(config.db, {
     useMongoClient: true
@@ -22,7 +22,7 @@ models.forEach(function (model) {
   require(model);
 });
 var app = express();
-
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 module.exports = require('./config/express')(app, config);
 
 app.listen(config.port, function () {
