@@ -5,6 +5,7 @@ var express = require('express'),
   glob = require('glob'),
   mongoose = require('mongoose');
 var favicon = require('serve-favicon');
+var path = require('path');
 var app = express();
   mongoose.Promise = global.Promise;
   var mongoDB = mongoose.connect(config.db, {
