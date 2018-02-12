@@ -17,7 +17,7 @@ var app = express();
     .catch(function (err) {
       console.log('error while trying to connect with mongodb');
     });
-app.use(favicon(path.join(__dirname, './public', 'favicon.ico')));
+
 var models = glob.sync(config.root + '/app/models/*.js');
 models.forEach(function (model) {
   require(model);
@@ -25,6 +25,7 @@ models.forEach(function (model) {
 
 
 module.exports = require('./config/express')(app, config);
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.listen(config.port, function () {
   console.log('Express server listening on port ' + config.port);
