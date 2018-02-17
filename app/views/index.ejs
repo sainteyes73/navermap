@@ -5,7 +5,7 @@
       <div class="column">
         <aside class="menu">
           <p class="menu-label">
-            지점 목록
+            AED 리스트
           </p>
           <ul class="menu-list">
             <%items.forEach(function (item){%>
@@ -44,6 +44,7 @@ function defaultLocation() {
   infowindow.setContent('<div class="notification is-primary">스타벅스 본점</div>');
   infowindow.open(map, marker);
 }
+
 function searchAddressToCoordinate(address) {
     naver.maps.Service.geocode({
         address: address
@@ -63,9 +64,12 @@ function searchAddressToCoordinate(address) {
                 '&nbsp&nbsp&nbsp -> '+ point.x +','+ point.y,
                 '</div>'
             ].join('\n'));
-
-        map.setCenter(point);
-        infowindow.open(map, point);
+        var marker = new naver.maps.Marker({
+          position: point,
+          map: map
+        });
+      //  map.setCenter(marker);
+        infowindow.open(map, marker);
     });
 }
 
@@ -110,10 +114,25 @@ function geolocationErr(error) { // 에러 처리
 
 $(document).ready(function() {
   // default
+
   defaultLocation();
   // menu 클릭 시
-  $('.menu-list li a').click(function (e) {
-    e.preventDefault();
+  //console.log(item.address);
+  /*
+  Array.prototype.forEach.call($('.menu-list li a'), function(e) {
+  //
+  //  e.preventDefault();
+    var location = $(this).attr('location');
+    var title = $(this).attr('title');
+    //var addr = $(this).attr('address');
+    console.log(title);
+    //menuLocation(title, location);
+    //searchAddressToCoordinate(addr);
+});
+*/
+
+  $('.menu-list li a').each(function (e) {
+    //e.preventDefault();
     var location = $(this).attr('location');
     var title = $(this).attr('title');
     var addr = $(this).attr('address');
@@ -121,6 +140,7 @@ $(document).ready(function() {
     searchAddressToCoordinate(addr);
 
   });
+
   // 위치 정보
   $('#nearbyme').click( function (e) {
     e.preventDefault();
