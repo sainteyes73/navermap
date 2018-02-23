@@ -14,8 +14,13 @@
           </ul>
         </aside>
       </div>
+
       <div class="column is-9">
         <div class="" id="map" style="width: 100%; height: 400px;"></div>
+        <div class="search" style>
+          <input id="searchaddress" type="text" placeholder="검색할 주소" value="불정로 6">
+          <input id="submit" type="button" value="주소 검색">
+        </div>
       </div>
     </div>
     <button id="nearbyme" type="button" class="button is-primary">가장 가까운 AED</button>
@@ -24,6 +29,7 @@
 
 
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=88gWD20RtsxD8klxDmdI&submodules=geocoder" charset="utf-8"></script>
+
 <script type="text/javascript">
 var map = new naver.maps.Map("map", {
     center: new naver.maps.LatLng(37.3595316, 127.1052133),
@@ -34,6 +40,7 @@ var map = new naver.maps.Map("map", {
 var infowindow = new naver.maps.InfoWindow({
     anchorSkew: true
 });
+
 
 
 function defaultLocation() {
@@ -56,20 +63,41 @@ function searchAddressToCoordinate(address) {
         var item = response.result.items[0],
             addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]',
             point = new naver.maps.Point(item.point.x, item.point.y);
-            console.log(point);
+      //      console.log(point);
         infowindow.setContent([
-                '<div style="padding:10px;min-width:200px;line-height:150%;">',
-                '<h4 style="margin-top:5px;">검색 주소 : '+ response.result.userquery +'</h4><br />',
-                addrType +' '+ item.address +'<br />',
-                '&nbsp&nbsp&nbsp -> '+ point.x +','+ point.y,
-                '</div>'
-            ].join('\n'));
+          '<form id="insertForm" method="post" style="width: 500px; line-height: 150%;">',
+          '<div class="field" style="padding: 10px;">',
+            '<h4>검색 주소: ' + response.result.userquery + '</h4>',
+            '<p>'+addrType+' '+item.address+'</p>',
+          '</div>',
+          '<div class="field has-addons" style="padding: 10px;">',
+            '<div class="control is-expanded">',
+              '<input type="hidden" name="address" value="'+item.address+'">',
+              '<input type="hidden" name="lat" value="'+point.x+'">',
+              '<input type="hidden" name="lng" value="'+point.y+'"><br/>',
+            '</div>',
+          '</div>',
+          '</form>'
+        ].join('\n'));
         var marker = new naver.maps.Marker({
           position: point,
           map: map
         });
       //  map.setCenter(marker);
         infowindow.open(map, marker);
+
+    });
+    $.ajax({
+      url: '/',
+      type:'post',
+      data: {
+        'location':item.point
+      },
+      success: function(data){
+        if(data){
+          console.log("data save success");
+        }
+      }
     });
 }
 
@@ -138,7 +166,6 @@ $(document).ready(function() {
     var addr = $(this).attr('address');
     //menuLocation(title, location);
     searchAddressToCoordinate(addr);
-
   });
 
   // 위치 정보
@@ -154,6 +181,21 @@ $(document).ready(function() {
     } else {
       alert('지원 안되는 브라우저 입니다..');
     }
+  });
+  map.addListener('click', function(e) {
+    searchCoordinateToAddress(e.coord);
+  });
+
+  $('#searchaddress').on('keydown', function(e) {
+    var keyCode = e.which;
+    if (keyCode === 13) { // Enter Key
+        searchAddressToCoordinate($('#searchaddress').val());
+    }
+  });
+
+  $('#submit').on('click', function(e) {
+    e.preventDefault();
+    searchAddressToCoordinate($('#searchaddress').val());
   });
 
 });
