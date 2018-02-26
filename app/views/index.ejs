@@ -133,7 +133,7 @@ $(document).ready(function() {
   // menu 클릭 시
   //console.log(item.address);
 
-  $('.menu-list li a').click(function(e){
+  $('.menu-list li a').each(function(e){
   //
   //  e.preventDefault();
     var location = $(this).attr('location');

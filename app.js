@@ -8,9 +8,20 @@ var favicon = require('serve-favicon');
 var path = require('path');
 var app = express();
   mongoose.Promise = global.Promise;
+  /*
   var mongoDB = mongoose.connect(config.db, {
     useMongoClient: true
   });
+  */
+  const connStr = (process.env.NODE_ENV == 'production')?
+  'mongodb://db1:antusdk2@ds033196.mlab.com:33196/woosung':
+  'mongodb://localhost/geolocation';
+  //const connStr = 'mongodb://localhost/mjdb4';
+  // 아래는 mLab을 사용하는 경우의 예: 본인의 접속 String으로 바꾸세요.
+  // const connStr = 'mongodb://dbuser1:mju12345@ds113825.mlab.com:13825/sampledb1';
+  mongoose.connect(connStr, {useMongoClient: true });
+  mongoose.connection.on('error', console.error);
+/*
   mongoDB
     .then(function (db) {
       console.log('mongodb has been connected');
@@ -18,7 +29,7 @@ var app = express();
     .catch(function (err) {
       console.log('error while trying to connect with mongodb');
     });
-
+*/
 var models = glob.sync(config.root + '/app/models/*.js');
 models.forEach(function (model) {
   require(model);
