@@ -9,7 +9,6 @@ var path = require('path');
 var app = express();
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
   mongoose.Promise = global.Promise;
   /*
   var mongoDB = mongoose.connect(config.db, {
