@@ -41,7 +41,6 @@ router.post('/add', function (req, res, next) {
     }
   });
 });
-
 router.post('/nearbyme', function (req, res, next) {
   var formData = [];
   formData[0] = req.body.lng;

@@ -85,22 +85,8 @@ function searchAddressToCoordinate(address) {
         });
       //  map.setCenter(marker);
         infowindow.open(map, marker);
-
-    });
-    $.ajax({
-      url: '/',
-      type:'post',
-      data: {
-        'location':item.point
-      },
-      success: function(data){
-        if(data){
-          console.log("data save success");
-        }
-      }
     });
 }
-
 function menuLocation(title, position) {
   var coords = position.split(',');
   var location = new naver.maps.LatLng(coords[1], coords[0]);
@@ -146,19 +132,18 @@ $(document).ready(function() {
   defaultLocation();
   // menu 클릭 시
   //console.log(item.address);
-  /*
-  Array.prototype.forEach.call($('.menu-list li a'), function(e) {
+
+  $('.menu-list li a').click(function(e){
   //
   //  e.preventDefault();
     var location = $(this).attr('location');
     var title = $(this).attr('title');
     //var addr = $(this).attr('address');
-    console.log(title);
-    //menuLocation(title, location);
+    menuLocation(title, location);
     //searchAddressToCoordinate(addr);
 });
-*/
 
+/*
   $('.menu-list li a').each(function (e) {
     //e.preventDefault();
     var location = $(this).attr('location');
@@ -167,7 +152,7 @@ $(document).ready(function() {
     //menuLocation(title, location);
     searchAddressToCoordinate(addr);
   });
-
+*/
   // 위치 정보
   $('#nearbyme').click( function (e) {
     e.preventDefault();
