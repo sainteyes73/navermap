@@ -7,6 +7,7 @@ var express = require('express'),
 var favicon = require('serve-favicon');
 var path = require('path');
 var app = express();
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
   mongoose.Promise = global.Promise;
   /*
   var mongoDB = mongoose.connect(config.db, {
@@ -37,7 +38,7 @@ models.forEach(function (model) {
 
 
 module.exports = require('./config/express')(app, config);
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 
 app.listen(config.port, function () {
   console.log('Express server listening on port ' + config.port);
