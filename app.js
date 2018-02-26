@@ -7,6 +7,8 @@ var express = require('express'),
 var favicon = require('serve-favicon');
 var path = require('path');
 var app = express();
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
   mongoose.Promise = global.Promise;
   /*
@@ -22,6 +24,10 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
   // const connStr = 'mongodb://dbuser1:mju12345@ds113825.mlab.com:13825/sampledb1';
   mongoose.connect(connStr, {useMongoClient: true });
   mongoose.connection.on('error', console.error);
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+
+  app.use(cookieParser());
 /*
   mongoDB
     .then(function (db) {
