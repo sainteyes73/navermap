@@ -4,5 +4,9 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #111111;
+}
+
+.menu-list li{
+  display:none;
 }

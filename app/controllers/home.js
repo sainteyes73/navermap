@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
       return next(err);
     } else {
       res.render('index', {
-        title: '가맹점 리스트',
+        title: 'AED 위치 리스트',
         items: items
       });
     }
@@ -22,7 +22,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/add', function (req, res, next) {
   res.render('add', {
-    title: '가맹점 추가'
+    title: 'AED 위치 추가'
   });
 });
 
