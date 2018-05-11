@@ -94,7 +94,7 @@ router.post('/message', (req,res) =>{
   }
     res.send(message);
   }else if(msg=="처음으로"){
-    var menu = {
+    let menu = {
         type: 'buttons',
         buttons: ["AED 위치 찾기"]
     };
