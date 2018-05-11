@@ -73,29 +73,22 @@ router.get('/keyboard', (req, res) => {
   };
   res.json(menu);
 });
-/*
-router.post('/message', (req, res) => {
-    const _obj = {
-        user_key: req.body.user_key,
-        type: req.body.type,
-        content: req.body.content
-    };
-    let massage = {
-        "message": {
-            "text": "AED위치를 확인합니다"
-            "message_button":{
-              "Label": "현재 위치 확인",
-              "url": "https://woosungweb.herokuapp.com/"
-            }
-        },
-        "keyboard": {
-            "type": "buttons",
-            "buttons": ["AED사용법 확인"]
 
-        }
-    };
-    res.set({
-        'content-type': 'application/json'
-    }).send(JSON.stringify(massage));
-});
-*/
+router.post('/message', (req,res) =>{
+  var msg = req.body.content;
+
+  var send= {
+    "message_button": {
+      "label":"현재 위치 확인",
+      "url":"https://woosungweb.herokuapp.com/"
+    },
+    "keyboard":{
+      "type":"buttons",
+      "buttons":[
+        "처음으로",
+        "AED 사용법"
+      ]
+    }
+
+  };
+  res.send(send);
