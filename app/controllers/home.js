@@ -79,10 +79,10 @@ router.post('/message', (req,res) =>{
 
   let message= {
   "message": {
-    "text": "귀하의 차량이 성공적으로 등록되었습니다. 축하합니다!",
+    "text": "아래 버튼을 눌러 현재 위치와 가장 가까운 AED를 알아내세요.",
     "message_button": {
-      "label": "주유 쿠폰받기",
-      "url": "https://coupon/url"
+      "label": "현 위치에서 가장 가까운 AED",
+      "url": "https://woosungweb.herokuapp.com/"
     }
   },
   "keyboard": {
