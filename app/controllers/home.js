@@ -66,7 +66,7 @@ router.post('/nearbyme', function (req, res, next) {
   });
 });
 
-router.get('/keyboard', (req, res) => {
+router.get('/', (req, res) => {
   const menu = {
       type: 'buttons',
       buttons: ["AED사용d"]
