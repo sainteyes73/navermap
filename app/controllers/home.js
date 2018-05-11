@@ -84,14 +84,16 @@ router.post('/message', (req, res) => {
     };
     let massage = {
         "message": {
-            "text": '응답 메세지...'
+            "text": 'AED위치를 확인합니다'
+            "message_button":{
+              "Label": "현재 위치 확인",
+              "url": "https://woosungweb.herokuapp.com/"
+            }
         },
         "keyboard": {
             "type": "buttons",
             "buttons": [
-                "메뉴1",
-                "메뉴2",
-                "메뉴3"
+                "AED사용법 확인"
             ]
         }
     };
