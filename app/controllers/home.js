@@ -70,9 +70,6 @@ router.get('/keyboard', (req, res) => {
   const menu = {
       type: 'buttons',
       buttons: ["AED 위치 찾기"]
-      "message":{
-        "text": 'AED 위치를 알려주는 서비스 입니다'
-      }
   };
   res.set({
       'content-type': 'application/json'
