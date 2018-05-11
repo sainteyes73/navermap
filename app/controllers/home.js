@@ -94,11 +94,11 @@ router.post('/message', (req,res) =>{
   }
     res.send(message);
   }else if(msg=="처음으로"){
-    let menu = {
-        type: 'buttons',
-        buttons: ["AED 위치 찾기"]
+    let message = {
+        "type": 'buttons',
+        "buttons": ["AED 위치 찾기"]
     };
-    res.send(menu);
+    res.send(message);
   }
 
 
