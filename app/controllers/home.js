@@ -81,13 +81,6 @@ router.post('/message', (req,res) =>{
     "message_button": {
       "label":"현재 위치 확인",
       "url":"https://woosungweb.herokuapp.com/"
-    },
-    "keyboard":{
-      "type":"buttons",
-      "buttons":[
-        "처음으로",
-        "AED 사용법"
-      ]
     }
 
   };
