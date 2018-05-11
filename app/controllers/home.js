@@ -67,13 +67,11 @@ router.post('/nearbyme', function (req, res, next) {
 });
 
 router.get('/keyboard', (req, res) => {
-  const menu = {
+  var menu = {
       type: 'buttons',
       buttons: ["AED 위치 찾기"]
   };
-  res.set({
-      'content-type': 'application/json'
-  }).send(JSON.stringify(menu));
+  res.json(menu);
 });
 /*
 router.post('/message', (req, res) => {
