@@ -95,9 +95,16 @@ router.post('/message', (req,res) =>{
     res.send(message);
   }else if(msg=="처음으로"){
     let message = {
-        "type": 'buttons',
-        "buttons": ["AED 위치 찾기"]
-    };
+    "message": {
+      "text": "처음으로 돌아갑니다."
+    },
+    "keyboard": {
+      "type": "buttons",
+      "buttons": [
+        "AED 위치 찾기"
+      ]
+    }
+  }
     res.send(message);
   }
 
