@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   <title><%- title %></title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css">
   <% if (ENV_DEVELOPMENT) { %>
     <script src="http://localhost:35729/livereload.js"></script>
@@ -13,12 +13,10 @@
 
 </head>
 <body>
-  <section class="hero is-success">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          AED 위치 검색기
-        </h1>
-      </div>
-    </div>
-  </section>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">AED-INFO 지도</a>
+    <form class="form-inline">
+      <input id ="searchaddress" class="form-control mr-sm-2" type="text" placeholder="검색할 주소" aria-label="Search">
+      <button id = "submit" class="btn btn-outline-success my-2 my-sm-0" type="button">주소 검색</button>
+    </form>
+  </nav>

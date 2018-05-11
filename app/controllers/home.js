@@ -65,3 +65,13 @@ router.post('/nearbyme', function (req, res, next) {
     }
   });
 });
+
+router.get('/keyboard', (req, res) => {
+  const menu = {
+      type: 'buttons',
+      buttons: ["AED사용법"]
+  };
+  res.set({
+      'content-type': 'application/json'
+  }).send(JSON.stringify(menu));
+});
