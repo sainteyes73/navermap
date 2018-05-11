@@ -78,11 +78,21 @@ router.post('/message', (req,res) =>{
   var msg = req.body.content;
 
   let message= {
+  "message": {
+    "text": "귀하의 차량이 성공적으로 등록되었습니다. 축하합니다!",
     "message_button": {
-      "label":"현재 위치 확인",
-      "url":"https://woosungweb.herokuapp.com/"
-    };
-
-  };
+      "label": "주유 쿠폰받기",
+      "url": "https://coupon/url"
+    }
+  },
+  "keyboard": {
+    "type": "buttons",
+    "buttons": [
+      "처음으로",
+      "다시 등록하기",
+      "취소하기"
+    ]
+  }
+}
   res.send(message);
 });
