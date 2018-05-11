@@ -71,7 +71,7 @@ router.get('/keyboard', (req, res) => {
       type: 'buttons',
       buttons: ["AED 위치 찾기"]
   };
-  res.json(menu);
+  res.send(menu);
 });
 
 router.post('/message', (req,res) =>{
@@ -93,6 +93,12 @@ router.post('/message', (req,res) =>{
     }
   }
     res.send(message);
+  }else if(msg=="처음으로"){
+    var menu = {
+        type: 'buttons',
+        buttons: ["AED 위치 찾기"]
+    };
+    res.send(menu);
   }
 
 
