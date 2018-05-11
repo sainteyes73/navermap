@@ -77,11 +77,11 @@ router.get('/keyboard', (req, res) => {
 router.post('/message', (req,res) =>{
   var msg = req.body.content;
 
-  var send= {
+  let message= {
     "message_button": {
       "label":"현재 위치 확인",
       "url":"https://woosungweb.herokuapp.com/"
     }
 
   };
-  res.send(send);
+  res.send(message);
