@@ -76,23 +76,24 @@ router.get('/keyboard', (req, res) => {
 
 router.post('/message', (req,res) =>{
   var msg = req.body.content;
-
-  let message= {
-  "message": {
-    "text": "아래 버튼을 눌러 현재 위치와 가장 가까운 AED를 알아내세요.",
-    "message_button": {
-      "label": "현 위치에서 가장 가까운 AED",
-      "url": "https://woosungweb.herokuapp.com/"
+  if(msg=="AED 위치 찾기"){
+    let message= {
+    "message": {
+      "text": "아래 버튼을 눌러 현재 위치와 가장 가까운 AED를 알아내세요.",
+      "message_button": {
+        "label": "현 위치에서 가장 가까운 AED",
+        "url": "https://woosungweb.herokuapp.com/"
+      }
+    },
+    "keyboard": {
+      "type": "buttons",
+      "buttons": [
+        "처음으로"
+      ]
     }
-  },
-  "keyboard": {
-    "type": "buttons",
-    "buttons": [
-      "처음으로",
-      "다시 등록하기",
-      "취소하기"
-    ]
   }
-}
-  res.send(message);
+    res.send(message);
+  }
+
+
 });
