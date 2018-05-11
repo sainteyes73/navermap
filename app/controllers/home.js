@@ -6,7 +6,7 @@ var express = require('express'),
 module.exports = function (app) {
   app.use('/', router);
 };
-
+/*
 router.get('/', function (req, res, next) {
   location.find(function (err, items) {
     if (err) {
@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
     }
   });
 });
-
+*/
 router.get('/add', function (req, res, next) {
   res.render('add', {
     title: 'AED 위치 추가'
@@ -69,7 +69,7 @@ router.post('/nearbyme', function (req, res, next) {
 router.get('/keyboard', (req, res) => {
   const menu = {
       type: 'buttons',
-      buttons: ["AED사용법"]
+      buttons: ["AED사용d"]
   };
   res.set({
       'content-type': 'application/json'
