@@ -69,7 +69,7 @@ router.post('/nearbyme', function (req, res, next) {
 router.get('/keyboard', (req, res) => {
   const menu = {
       type: 'buttons',
-      buttons: ["AED 위치 찾기"]
+      buttons: ["메뉴1", "메뉴2", "메뉴3"]
   };
   res.set({
       'content-type': 'application/json'
