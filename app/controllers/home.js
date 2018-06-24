@@ -75,6 +75,15 @@ router.get('/keyboard', (req, res) => {
 });
 
 router.post('/message', (req,res) =>{
+  if(navigator.geolocation){
+    let message={
+      "message":{
+        "text":"Thankyou"
+      }
+    }
+    res.send(message);
+  }else{
+
   var msg = req.body.content;
   if(msg=="AED 위치 찾기"){
     let message= {
@@ -107,6 +116,6 @@ router.post('/message', (req,res) =>{
   }
     res.send(message);
   }
-
+}
 
 });
