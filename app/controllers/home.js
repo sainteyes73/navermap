@@ -74,7 +74,7 @@ router.get('/keyboard', (req, res) => {
   res.send(menu);
 });
 
-router.post('/message', (req,res) =>{
+router.get('/message', (req,res) =>{
   if(navigator.geolocation){
     let message={
       "message":{
